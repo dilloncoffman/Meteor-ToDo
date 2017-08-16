@@ -1,7 +1,6 @@
+import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
-
-import { Tasks } from '../api/tasks.js';
 
 import './task.js';
 import './body.html';
@@ -35,10 +34,7 @@ Template.body.events({
     const text = target.text.value;
 
     //Insert a task into collection
-    Tasks.insert({
-      text,
-      createdAt: new Date(), //the current time
-    });
+    Meteor.call('tasks.insert', text);
 
     //clear form
     target.text.value = '';
